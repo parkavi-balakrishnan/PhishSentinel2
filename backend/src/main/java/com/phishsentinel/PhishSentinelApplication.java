@@ -8,6 +8,8 @@ public class PhishSentinelApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PhishSentinelApplication.class, args);
+        System.out.println("PhishSentinel backend is running...");
     }
 }
-// test commit
+ 
+    
