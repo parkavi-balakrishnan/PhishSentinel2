@@ -1,4 +1,3 @@
-
 package com.phishsentinel.service;
 
 import com.phishsentinel.model.Report;
@@ -15,11 +14,13 @@ public class AdminService {
     @Autowired
     private ReportRepository reportRepository;
 
+    // ✅ Fetch all reports with status = PENDING (already fine)
     public List<Report> getPendingReports() {
         return reportRepository.findByStatusOrderByReportedAtDesc("PENDING");
     }
 
-    public Report updateReportStatus(String reportId, String status) {
+    // ✅ Fix: reportId should be Long, not String
+    public Report updateReportStatus(Long reportId, String status) {
         Optional<Report> reportOpt = reportRepository.findById(reportId);
         if (reportOpt.isPresent()) {
             Report report = reportOpt.get();

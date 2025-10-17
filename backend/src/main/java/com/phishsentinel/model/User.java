@@ -9,7 +9,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // ✅ Long type — keep this
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -21,12 +21,20 @@ public class User {
     private String password;
 
     private String role;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
     private Date createdAt;
 
-    // Getters and Setters
+    // ✅ Lifecycle hook to auto-set createdAt timestamp
+    @PrePersist
+    protected void onCreate() {
+        if (createdAt == null) {
+            createdAt = new Date();
+        }
+    }
 
+    // --- Getters & Setters ---
     public Long getId() {
         return id;
     }

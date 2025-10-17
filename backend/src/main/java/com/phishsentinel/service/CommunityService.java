@@ -1,8 +1,8 @@
-
 package com.phishsentinel.service;
 
 import com.phishsentinel.model.Report;
 import com.phishsentinel.model.Vote;
+import com.phishsentinel.model.UserProfile;
 import com.phishsentinel.repository.ReportRepository;
 import com.phishsentinel.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +29,9 @@ public class CommunityService {
         return reportRepository.findAll();
     }
 
-    public Vote voteOnReport(String reportId, String userId, boolean isUpvote) {
-        // Check if user already voted on this report
+    public Vote voteOnReport(Long reportId, Long userId, boolean isUpvote) {
         Optional<Vote> existingVote = voteRepository.findByReportIdAndUserId(reportId, userId);
-        
+
         if (existingVote.isPresent()) {
             Vote vote = existingVote.get();
             vote.setIsUpvote(isUpvote);
@@ -46,7 +45,18 @@ public class CommunityService {
         }
     }
 
-    public Long getVoteCount(String reportId) {
+    public Long getVoteCount(Long reportId) {
         return voteRepository.countByReportId(reportId);
+    }
+
+    public UserProfile getUserProfile(Long userId) {
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUserId(userId);
+        userProfile.setDisplayName("Anonymous User");
+        userProfile.setBio("This user has not added a bio yet.");
+        userProfile.setAvatarUrl(null);
+        userProfile.setReputationScore(0);
+        userProfile.setContributionCount(0);
+        return userProfile;
     }
 }

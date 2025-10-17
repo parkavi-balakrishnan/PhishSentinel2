@@ -16,10 +16,11 @@ public class Vote {
     @Column(nullable = false)
     private Long reportId;
 
-    private boolean upvote;
+    // Use proper naming convention
+    @Column(nullable = false)
+    private boolean isUpvote;
 
     // Getters and Setters
-
     public Long getId() {
         return id;
     }
@@ -45,10 +46,10 @@ public class Vote {
     }
 
     public boolean isUpvote() {
-        return upvote;
+        return isUpvote;
     }
 
-    public void setUpvote(boolean upvote) {
-        this.upvote = upvote;
+    public void setIsUpvote(boolean isUpvote) {
+        this.isUpvote = isUpvote;
     }
 }

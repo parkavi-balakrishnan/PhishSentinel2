@@ -52,7 +52,7 @@ public class AuthController {
         User savedUser = userRepository.save(user);
 
         String token = jwtUtil.generateToken(user.getUsername());
-        UserResponse userResponse = new UserResponse(savedUser.getId(), savedUser.getUsername(), savedUser.getEmail(), savedUser.getRole());
+        UserResponse userResponse = new UserResponse(savedUser.getId().toString(), savedUser.getUsername(), savedUser.getEmail(), savedUser.getRole());
         AuthResponse authResponse = new AuthResponse(token, userResponse);
 
         return ResponseEntity.ok(ApiResponse.success("Registration successful", authResponse));
@@ -71,7 +71,7 @@ public class AuthController {
                 return ResponseEntity.badRequest().body(ApiResponse.error("User not found"));
             }
             User user = userOptional.get();
-            UserResponse userResponse = new UserResponse(user.getId(), user.getUsername(), user.getEmail(), user.getRole());
+            UserResponse userResponse = new UserResponse(user.getId().toString(), user.getUsername(), user.getEmail(), user.getRole());
             AuthResponse authResponse = new AuthResponse(token, userResponse);
             return ResponseEntity.ok(ApiResponse.success("Login successful", authResponse));
         } catch (Exception ex) {
